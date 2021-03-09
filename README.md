@@ -14,10 +14,14 @@ Trello:
 https://trello.com/b/YSd7MV8e/lab-parallel-computing
 
 RED LINE: SIMD No Optimization
+
 BLUE LINE: NonSIMD
+
 ![Task 2](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/master/Task2Graph.png)
 
 RED LINE: Vectorized Output
+
 BLUE LINE: NonSIMD
+
 ![Task 3](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/master/Task3Graph.png)
 
