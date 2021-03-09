@@ -22,7 +22,7 @@ int test_unoptimized(double *a, int arows, int acols,
 
 int main(void) {
     
-    FILE * output = fopen( "Task2-nonSIDM-output.txt", "w" );
+    FILE * output = fopen( "Task3-nonSIMD-output.txt", "w" );
     
     for( int i = 0; i < 101; i++ ) {
         
@@ -42,7 +42,7 @@ int main(void) {
     }
     fclose( output );
     
-    output = fopen( "Task2-nonvectorizedSIDM-output.txt", "w" );
+    output = fopen( "Task3-Actual-Non-VectorizedSIMD-output.txt", "w" );
     for( int j = 0; j < 101; j++ ) {
         
         clock_t startTime = clock();
