@@ -20,18 +20,44 @@ int test_unoptimized(double *a, int arows, int acols,
 }
 
 int main(void) {
-    double *a = read_matrix_from_file("a.txt");
-    double *b = read_matrix_from_file("b.txt");
-    double *c_actual = read_matrix_from_file("c.txt");
-    double *c_calc = malloc(MAT_SIZE * MAT_SIZE * sizeof(double));
-
-    if(!test_unoptimized(a, MAT_SIZE, MAT_SIZE, b, MAT_SIZE, MAT_SIZE, c_actual)) {
-        exit(1);
+    
+    FILE * output = fopen( "nonoptimized-output.txt", "w" );
+    
+    for( int i = 0; i < 1001; i++ ) {
+        
+        clock * startTime = clock();
+        
+        double * a = gen_matrix( i, i );
+        double * b = gen_matrix( i, i );
+        double * result = malloc( i * i * sizeof( double ) );
+        
+        mmult( result, a, i, i, b, i, i );
+        clock * endTime = clock();
+        free( result );
+        
+        long double time = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
+        fprintf( output, "%d,%Lf,", i, time );
+        
     }
-
-    puts("All tests pass.");
-
-    free(a);
-    free(b);
-    free(c_actual);
+    fclose( output );
+    
+    FILE * output = fopen( "optimized-output.txt", "w" );
+    for( int j = 0; j < 1001; j++ ) {
+        
+        clock * startTime = clock();
+        
+        double * a = gen_matrix( j, j );
+        double * b = gen_matrix( j, j );
+        double * result = malloc( j * j * sizeof( double ) );
+        
+        mmult_simd( result, a, j, j, b, j, j );
+        clock * endTime = clock();
+        free( result );
+        
+        long double = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
+        fprintf( output, "%d,%Lf,", i, time );
+        
+    }
+    fclose( output );
+    
 }
