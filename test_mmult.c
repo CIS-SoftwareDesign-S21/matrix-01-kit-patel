@@ -24,7 +24,7 @@ int main(void) {
     
     FILE * output = fopen( "Task2-nonSIDM-output.txt", "w" );
     
-    for( int i = 0; i < 1001; i++ ) {
+    for( int i = 0; i < 101; i++ ) {
         
         clock_t startTime = clock();
         
@@ -43,7 +43,7 @@ int main(void) {
     fclose( output );
     
     output = fopen( "Task2-nonvectorizedSIDM-output.txt", "w" );
-    for( int j = 0; j < 1001; j++ ) {
+    for( int j = 0; j < 101; j++ ) {
         
         clock_t startTime = clock();
         
@@ -55,7 +55,7 @@ int main(void) {
         clock_t endTime = clock();
         free( result );
         
-        double time = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
+        double time = (endTime - startTime) / CLOCKS_PER_SEC;
         fprintf( output, "%d,%lf,", j, time );
         
     }
