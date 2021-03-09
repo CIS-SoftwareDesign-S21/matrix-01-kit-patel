@@ -26,14 +26,14 @@ int main(void) {
     
     for( int i = 0; i < 1001; i++ ) {
         
-        clock * startTime = clock();
+        clock_t * startTime = clock();
         
         double * a = gen_matrix( i, i );
         double * b = gen_matrix( i, i );
         double * result = malloc( i * i * sizeof( double ) );
         
         mmult( result, a, i, i, b, i, i );
-        clock * endTime = clock();
+        clock_t * endTime = clock();
         free( result );
         
         long double time = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
@@ -45,14 +45,14 @@ int main(void) {
     output = fopen( "optimized-output.txt", "w" );
     for( int j = 0; j < 1001; j++ ) {
         
-        clock * startTime = clock();
+        clock_t * startTime = clock();
         
         double * a = gen_matrix( j, j );
         double * b = gen_matrix( j, j );
         double * result = malloc( j * j * sizeof( double ) );
         
         mmult_simd( result, a, j, j, b, j, j );
-        clock * endTime = clock();
+        clock_t * endTime = clock();
         free( result );
         
         long double time = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
