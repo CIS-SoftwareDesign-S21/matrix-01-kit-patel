@@ -36,7 +36,7 @@ int main(void) {
         clock_t endTime = clock();
         free( result );
         
-        long double time = (endTime - startTime) / CLOCKS_PER_SEC;
+        long double time = (endTime - startTime);
         fprintf( output, "%d,%Lf,", i, time );
         
     }
@@ -55,7 +55,7 @@ int main(void) {
         clock_t endTime = clock();
         free( result );
         
-        long double time = (endTime - startTime) / CLOCKS_PER_SEC;
+        long double time = (endTime - startTime);
         fprintf( output, "%d,%Lf,", j, time );
         
     }
