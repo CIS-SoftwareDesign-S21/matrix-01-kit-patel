@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "mat.h"
 
@@ -55,7 +56,7 @@ int main(void) {
         free( result );
         
         long double = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
-        fprintf( output, "%d,%Lf,", i, time );
+        fprintf( output, "%d,%Lf,", j, time );
         
     }
     fclose( output );
