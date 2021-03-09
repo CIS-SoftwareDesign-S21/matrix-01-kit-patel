@@ -42,7 +42,7 @@ int main(void) {
     }
     fclose( output );
     
-    FILE * output = fopen( "optimized-output.txt", "w" );
+    output = fopen( "optimized-output.txt", "w" );
     for( int j = 0; j < 1001; j++ ) {
         
         clock * startTime = clock();
@@ -55,7 +55,7 @@ int main(void) {
         clock * endTime = clock();
         free( result );
         
-        long double = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
+        long double time = (endTime - startTime) / CLOCKS_PER_SEC * 1000;
         fprintf( output, "%d,%Lf,", j, time );
         
     }
