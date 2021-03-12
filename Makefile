@@ -14,10 +14,10 @@ mmult_omp_timing:	mmult.o mmult_omp.o mmult_omp_timing.o mat.c
 mat.o:	mat.c
 	gcc -c mat.c
 
-mmult_simd.o: mmult_simd.c
-	gcc -c mmult_simd.c
+mmult_simd.o:	mmult_simd.c
+	gcc -c -O3 mmult_simd.c
 
-mmult.o:	mmult.c
+mmult.o:    mmult.c
 	gcc -c mmult.c
 
 mmult_omp.o:	mmult_omp.c
