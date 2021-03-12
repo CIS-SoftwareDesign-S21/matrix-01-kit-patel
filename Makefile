@@ -15,7 +15,7 @@ mat.o:	mat.c
 	gcc -c mat.c
 
 mmult_simd.o: mmult_simd.c
-	gcc -c mmult_simd.c
+	gcc -c -O3 mmult_simd.c
 
 mmult.o:	mmult.c
 	gcc -c mmult.c
