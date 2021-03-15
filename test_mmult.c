@@ -23,7 +23,6 @@ int test_unoptimized(double *a, int arows, int acols,
     return are_same;
 }
 
-
 int main(int argc, char* argv[])
 {
     int max_matrix_size = atoi(argv[1]);
