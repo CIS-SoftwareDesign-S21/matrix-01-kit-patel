@@ -1,4 +1,4 @@
-pset terminal png size 800,600
+set terminal png size 800,600
 set output 'out.png'
 
 set xlabel 'Matrix size'
