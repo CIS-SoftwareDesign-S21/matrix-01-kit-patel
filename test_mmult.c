@@ -42,7 +42,7 @@ int main(void) {
     }
     fclose( output );
     
-    output = fopen( "Task3-Actual-Non-VectorizedSIMD-output.txt", "w" );
+    output = fopen( "Task3-Actual-VectorizedSIMD-output.txt", "w" );
     for( int j = 0; j < 101; j++ ) {
         
         clock_t startTime = clock();
