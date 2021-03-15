@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <time.h>
+#include <string.h>
 
 #include "mat.h"
+#include "mmult.h"
 
 #define MAT_SIZE 5
 
@@ -20,45 +23,34 @@ int test_unoptimized(double *a, int arows, int acols,
     return are_same;
 }
 
-int main(void) {
-    
-    FILE * output = fopen( "Task3-nonSIMD-output.txt", "w" );
-    
-    for( int i = 0; i < 101; i++ ) {
-        
-        clock_t startTime = clock();
-        
-        double * a = gen_matrix( i, i );
-        double * b = gen_matrix( i, i );
-        double * result = malloc( i * i * sizeof( double ) );
-        
-        mmult( result, a, i, i, b, i, i );
-        clock_t endTime = clock();
-        free( result );
-        
-        long double time = (endTime - startTime);
-        fprintf( output, "%d,%Lf,", i, time );
-        
-    }
-    fclose( output );
-    
-    output = fopen( "Task3-Actual-Non-VectorizedSIMD-output.txt", "w" );
-    for( int j = 0; j < 101; j++ ) {
-        
-        clock_t startTime = clock();
-        
-        double * a = gen_matrix( j, j );
-        double * b = gen_matrix( j, j );
-        double * result = malloc( j * j * sizeof( double ) );
-        
-        mmult_simd( result, a, j, j, b, j, j );
-        clock_t endTime = clock();
-        free( result );
-        
-        long double time = (endTime - startTime);
-        fprintf( output, "%d,%Lf,", j, time );
-        
-    }
-    fclose( output );
-    
-}
+
+int main(int argc, char* argv[])
+{
+    int max_matrix_size = atoi(argv[1]);
+    clock_t t;
+    double *a, *b, *c_calc;
+
+    FILE *vectorized_Output;
+    vectorized_Output = fopen("clusterVecSIMD.txt", "w");
+
+    for (int i = 1; i <= max_matrix_size; i++)
+    {
+        double *a = gen_matrix(i, i);;
+        double *b = gen_matrix(i, i);;
+        double *c_calc = malloc(sizeof(double) * i * i);
+
+        t = clock();  // Start time
+        mmult_v(c_calc,a, i, i, b, i, i);
+        t = clock() - t;  // End time
+        double time_taken = ((double)t)/CLOCKS_PER_SEC;
+
+
+        // Stuff we added to log timings for graphing
+        char vectorized_buffer[256];
+        sprintf(vectorized_buffer, "%d, %d, %f\n", i, i, time_taken);
+        fwrite(vectorized_buffer, 1 , strlen(vectorized_buffer) , vectorized_Output);
+        // printf("%f\n", time_taken);
+    }//end for()
+
+    fclose(vectorized_Output);
+}//end main()
