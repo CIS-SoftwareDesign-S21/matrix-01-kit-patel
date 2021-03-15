@@ -30,25 +30,50 @@ int main(int argc, char* argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &myid);
     if (argc > 1) {
-        nrows = atoi(argv[1]);
-        ncols = nrows;
-        
-        if (myid == 0) {
-            // Master Code goes here
-            aa = gen_matrix(nrows, ncols);
-            bb = gen_matrix(ncols, nrows);
-            cc1 = malloc(sizeof(double) * nrows * nrows); 
-            starttime = MPI_Wtime();
-            /* Insert your master code here to store the product into cc1 */
-            endtime = MPI_Wtime();
-            printf("%f\n",(endtime - starttime));
-            cc2  = malloc(sizeof(double) * nrows * nrows);
-            mmult(cc2, aa, nrows, ncols, bb, ncols, nrows);
-            compare_matrices(cc2, cc1, nrows, nrows);
-        } else {
-            // Slave Code goes here
+        b = (double*)malloc(sizeof(double) * ncols);
+        c = (double*)malloc(sizeof(double) * nrows);
+        buffer = (double*)malloc(sizeof(double) * ncols);
+        master = 0;
+
+        if (myid == master) {
+            // Master Process
+            a = gen_matrix(nrows, ncols);
+            numsent = 0;
+           // broadcast the entire matrix b to all slave processes
+           MPI_Bcast(b, ncols, MPI_DOUBLE, master, MPI_COMM_WORLD);
+           // iterate over each row in matrix a/slave processes
+           for (i = 0; i < min(numprocs-1, nrows); i++) {
+                // add current row in a to buffer
+                for (j = 0; j < ncols; j++) 
+                     buffer[j] = a[i * ncols + j];
+                // send just one row from a to the slave processes
+                MPI_Send(buffer, ncols, MPI_DOUBLE, i+1, i+1, MPI_COMM_WORLD);
+           }
         }
-    } else {
+    
+        else {
+            // Slave Code 
+            // here is where the slave processes listen for the broadcast (specifies master as the sender)
+            // they're receiving the matrix b
+            MPI_Bcast(b, ncols, MPI_DOUBLE, master, MPI_COMM_WORLD);
+            if (myid <= nrows) {
+                while(1) {
+                    MPI_Recv(buffer, ncols, MPI_DOUBLE, master, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+                    if (status.MPI_TAG == 0)
+                               break;
+
+                    row = status.MPI_TAG;
+
+                    //TODO calculate row buffer * matrix b here and put into row result
+
+                    //TODO send the row result back to master
+                }
+
+             }
+
+        }
+    }
+        else {
         fprintf(stderr, "Usage matrix_times_vector <size>\n");
     }
     MPI_Finalize();
