@@ -13,19 +13,8 @@ Tsunkit Lam & Edward Brace
 Trello: 
 https://trello.com/b/YSd7MV8e/lab-parallel-computing
 
-#### Task 2:
 
-**RED LINE: SIMD No Optimization**
+Output graph:
 
-**BLUE LINE: NonSIMD**
-
-![Task 2](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/master/Task2Graph.png)
-
-##### Task 3:
-
-**RED LINE: Vectorized Output**
-
-**BLUE LINE: NonSIMD**
-
-![Task 3](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/master/Task3Graph.png)
+(https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/task4/out.png)
 
