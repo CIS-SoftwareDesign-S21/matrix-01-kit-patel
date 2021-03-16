@@ -5,7 +5,6 @@
 #include <string.h>
 
 #include "mat.h"
-#include "mmult.h"
 
 #define MAT_SIZE 5
 
