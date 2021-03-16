@@ -125,6 +125,11 @@ int main(int argc, char* argv[])
 
             }
         }
+        
+        free( aa );
+        free( bb );
+        free( cc1 );
+        
         fclose(mpi_Output);
     }
     else {

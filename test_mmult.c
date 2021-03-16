@@ -52,6 +52,10 @@ int main(int argc, char* argv[])
             sprintf(vectorized_buffer, "%d, %d, %f\n", i, i, time_taken);
             fwrite(vectorized_buffer, 1 , strlen(vectorized_buffer) , vectorized_Output);
         }
+        
+        free( a );
+        free( b );
+        free( c );
         // printf("%f\n", time_taken);
     }//end for()
 
