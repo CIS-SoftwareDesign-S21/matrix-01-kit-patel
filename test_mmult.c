@@ -56,6 +56,7 @@ int main(int argc, char* argv[])
         free( a );
         free( b );
         free( c_calc );
+
         // printf("%f\n", time_taken);
     }//end for()
 
