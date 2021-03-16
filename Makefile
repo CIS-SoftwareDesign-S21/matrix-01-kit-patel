@@ -24,7 +24,7 @@ mmult_omp.o:	mmult_omp.c
 	gcc -c -O3 -fopenmp mmult_omp.c
 
 mmult_omp_timing.o:	mmult_omp_timing.c
-	gcc -c -O3 mmult_omp_timing.c
+	gcc -c -O3 -fopenmp mmult_omp_timing.c
 
 matrix_times_vector:	matrix_times_vector.c mat.c
 	mpicc -O3 -o matrix_times_vector matrix_times_vector.c mat.c
