@@ -16,5 +16,5 @@ https://trello.com/b/YSd7MV8e/lab-parallel-computing
 
 Output graph:
 
-![Task 4](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/task4/out.png)
+![Task 5](https://github.com/CIS-SoftwareDesign-S21/matrix-01-kit-patel/blob/task5/out.png)
 
