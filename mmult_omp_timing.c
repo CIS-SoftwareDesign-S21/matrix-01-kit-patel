@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
                 mmult_omp(c2, a, n, n, b, n, n);
                 if( i % 100 == 0 ) {
                     t = clock() - t;  // End time
-                    time_taken = ((double)t)/CLOCKS_PER_SEC;
+                    double time_taken = ((double)t)/CLOCKS_PER_SEC;
                     times[1] = time_taken;  // Time elapsed for omp multiplication
                 
                     char omp_buffer[256];
