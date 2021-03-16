@@ -55,6 +55,8 @@ int main(int argc, char* argv[]) {
                 // compare_matrices(c1, c2, n, n);
             }
             
+            fclose(unoptimized_Output);
+            
             for (int i = 1; i <= max_matrix_size; i++) {
                 n = i;
                 a = gen_matrix(n, n);
@@ -62,7 +64,9 @@ int main(int argc, char* argv[]) {
                 c1 = malloc(sizeof(double) * n * n);
                 c2 = malloc(sizeof(double) * n * n);
                 
-                t = clock();  // Start time
+                if( i % 100 == 1 )
+                    t = clock();  // Start time
+                
                 mmult_omp(c2, a, n, n, b, n, n);
                 if( i % 100 == 0 ) {
                     t = clock() - t;  // End time
@@ -78,7 +82,6 @@ int main(int argc, char* argv[]) {
                 free( c2 );
             }
 
-            fclose(unoptimized_Output);
             fclose(openMP_Output);
         } else {
             fprintf(stderr, "Usage %s <n>\n", argv[0]);

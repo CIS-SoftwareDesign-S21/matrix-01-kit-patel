@@ -39,8 +39,10 @@ int main(int argc, char* argv[])
 
         if( i % 100 == 1 )
             t = clock();  // Start time
+        
+        mmult_simd(c_calc,a, i, i, b, i, i);
+        
         if( i % 100 == 0 ) {
-            mmult_simd(c_calc,a, i, i, b, i, i);
             t = clock() - t;  // End time
             double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
