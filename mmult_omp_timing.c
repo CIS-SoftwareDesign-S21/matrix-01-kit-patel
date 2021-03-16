@@ -33,29 +33,49 @@ int main(int argc, char* argv[]) {
                 c1 = malloc(sizeof(double) * n * n);
                 c2 = malloc(sizeof(double) * n * n);
 
-                t = clock();  // Start time
+                if( i % 100 == 1 )
+                    t = clock();  // Start time
+                
                 mmult(c1, a, n, n, b, n, n);
-                t = clock() - t;  // End time
-                double time_taken = ((double)t)/CLOCKS_PER_SEC;
-                times[0] = time_taken;  // Time elapsed for non-omp multiplication
+                if( i % 100 == 0 ) {
+                    t = clock() - t;  // End time
+                    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+                    times[0] = time_taken;  // Time elapsed for non-omp multiplication
+                
+                    // Stuff we added to log timings for graphing
+                    char unoptimized_buffer[256];
+                    sprintf(unoptimized_buffer, "%d, %d, %f\n", i, n, times[0]);
+                    fwrite(unoptimized_buffer, 1 , strlen(unoptimized_buffer) , unoptimized_Output);
+                }
+                
 
-
+                free( c1 );
+                free( c2 );
+                
+                // compare_matrices(c1, c2, n, n);
+            }
+            
+            for (int i = 1; i <= max_matrix_size; i++) {
+                n = i;
+                a = gen_matrix(n, n);
+                b = gen_matrix(n, n);
+                c1 = malloc(sizeof(double) * n * n);
+                c2 = malloc(sizeof(double) * n * n);
+                
                 t = clock();  // Start time
                 mmult_omp(c2, a, n, n, b, n, n);
-                t = clock() - t;  // End time
-                time_taken = ((double)t)/CLOCKS_PER_SEC;
-                times[1] = time_taken;  // Time elapsed for omp multiplication
-
-                // Stuff we added to log timings for graphing
-                char unoptimized_buffer[256];
-                sprintf(unoptimized_buffer, "%d, %d, %f\n", i, n, times[0]);
-                fwrite(unoptimized_buffer, 1 , strlen(unoptimized_buffer) , unoptimized_Output);
-
-                char omp_buffer[256];
-                sprintf(omp_buffer, "%d, %d, %f\n", i, n, times[1]);
-                fwrite(omp_buffer, 1 , strlen(omp_buffer) , openMP_Output);
-
-                // compare_matrices(c1, c2, n, n);
+                if( i % 100 == 0 ) {
+                    t = clock() - t;  // End time
+                    time_taken = ((double)t)/CLOCKS_PER_SEC;
+                    times[1] = time_taken;  // Time elapsed for omp multiplication
+                
+                    char omp_buffer[256];
+                    sprintf(omp_buffer, "%d, %d, %f\n", i, n, times[1]);
+                    fwrite(omp_buffer, 1 , strlen(omp_buffer) , openMP_Output);
+                }
+                
+                free( c1 );
+                free( c2 );
             }
 
             fclose(unoptimized_Output);

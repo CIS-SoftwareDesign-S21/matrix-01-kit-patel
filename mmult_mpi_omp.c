@@ -49,16 +49,20 @@ int main(int argc, char* argv[])
         mpi_Output = fopen("clusterMPI.txt", "w");
 
         int max_matrix_size = atoi(argv[1]);
+        starttime = MPI_Wtime();
         for (int i = 1; i <= max_matrix_size; i++) {
             nrows = i;
             ncols = nrows;
 	    aa = gen_matrix(nrows, ncols);
             bb = gen_matrix(ncols, nrows);
             cc1 = (double*)malloc(sizeof(double) * ncols);
+            
+            
+            
             if (myid == master) {
                 // Master Code goes here
-                starttime = MPI_Wtime();
-
+                if( i % 100 == 1 )
+                    starttime = MPI_Wtime();
 
                 /* Insert your master code here to store the product into buffer */
                 numsent = 0;
@@ -89,13 +93,13 @@ int main(int argc, char* argv[])
                 }
                 /* End of master code (that was copied from mxv_omp_mpi.c and altered) */
 
-                endtime = MPI_Wtime();
-
-                // Added for graphing
-                char mpi_log_buffer[256];
-                sprintf(mpi_log_buffer, "%d, %d, %f\n", nrows, nrows, endtime-starttime);
-                fwrite(mpi_log_buffer, 1 , strlen(mpi_log_buffer) , mpi_Output);
-
+                if( i % 100 == 0 ) {
+                    endtime = MPI_Wtime();
+                    // Added for graphing
+                    char mpi_log_buffer[256];
+                    sprintf(mpi_log_buffer, "%d, %d, %f\n", nrows, nrows, endtime-starttime);
+                    fwrite(mpi_log_buffer, 1 , strlen(mpi_log_buffer) , mpi_Output);
+                }
             } else {
 
                 // Slave Code goes here

@@ -38,16 +38,19 @@ int main(int argc, char* argv[])
         double *b = gen_matrix(i, i);;
         double *c_calc = malloc(sizeof(double) * i * i);
 
-        t = clock();  // Start time
-        mmult_v(c_calc,a, i, i, b, i, i);
-        t = clock() - t;  // End time
-        double time_taken = ((double)t)/CLOCKS_PER_SEC;
+        if( i % 100 == 1 )
+            t = clock();  // Start time
+        if( i % 100 == 0 ) {
+            mmult_v(c_calc,a, i, i, b, i, i);
+            t = clock() - t;  // End time
+            double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
 
-        // Stuff we added to log timings for graphing
-        char vectorized_buffer[256];
-        sprintf(vectorized_buffer, "%d, %d, %f\n", i, i, time_taken);
-        fwrite(vectorized_buffer, 1 , strlen(vectorized_buffer) , vectorized_Output);
+            // Stuff we added to log timings for graphing
+            char vectorized_buffer[256];
+            sprintf(vectorized_buffer, "%d, %d, %f\n", i, i, time_taken);
+            fwrite(vectorized_buffer, 1 , strlen(vectorized_buffer) , vectorized_Output);
+        }
         // printf("%f\n", time_taken);
     }//end for()
 
