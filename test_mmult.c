@@ -5,7 +5,6 @@
 #include <string.h>
 
 #include "mat.h"
-#include "mmult.h"
 
 #define MAT_SIZE 5
 
@@ -39,7 +38,7 @@ int main(int argc, char* argv[])
         double *c_calc = malloc(sizeof(double) * i * i);
 
         t = clock();  // Start time
-        mmult_v(c_calc,a, i, i, b, i, i);
+        mmult_simd(c_calc,a, i, i, b, i, i);
         t = clock() - t;  // End time
         double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
