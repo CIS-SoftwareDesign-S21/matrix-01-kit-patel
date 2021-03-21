@@ -10,9 +10,9 @@
 `Eddie Brace` : Contributions invloved initial commits to implement SIMD parallelism and extensive changes later on to broaden test cases, optimize MPI implemnentation to meet expected resulted results, and re-configuring labels on graph to reflect accurately the test results.
 
 **Project Life Cycle**
-We used Trello to keep track of tasks. I (eddie) have limited experience with Trello but it's very straightforward and easy to use.
-Using the Wolfgang cluster made development more onerous as developing using an IDE required commiting changes to Task-Branch every time code was to be tested. This resulted in slower progress and more commits but also encouraged me to become proficient with nano on the server itself.
-Testing measured the execution time at intervals of 100 matrices using clocks ticks as a measurementl, translated to seconds for presentation purposes. We used simple loops to process randomly generated matrices of size 1-1000 for each distint approach to matric multiplication. Results were written to a text file and automatically made into a graph using GNUPLot.
+We used Trello to keep track of tasks. I (eddie) have limited experience with Trello but it's very straightforward and easy to use.  
+Using the Wolfgang cluster made development more onerous as developing using an IDE required commiting changes to Task-Branch every time code was to be tested. This resulted in slower progress and more commits but also encouraged me to become proficient with nano on the server itself.  
+Testing measured the execution time at intervals of 100 matrices using clocks ticks as a measurementl, translated to seconds for presentation purposes. We used simple loops to process randomly generated matrices of size 1-1000 for each distint approach to matric multiplication. Results were written to a text file and automatically made into a graph using GNUPLot.  
 Development time was used extensively on both testing and code modofications, which we tended to bounce back and forth between for reasons described above.
 
 `Trello`: 
